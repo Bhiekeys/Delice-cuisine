@@ -216,7 +216,7 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
       <div className="flex flex-wrap justify-center items-center box-border h-screen">
         <div className="flex items-center justify-center">
           <h3 className="bg-[#f737a7] rounded-[200px] my-3 py-4 px-3 mr-7 text-[18px] text-[#fff] text-center sm:w-fit">
-            Waiting for customer to join call...
+            Waiting for staff to join call...
           </h3>
         </div>
         <VideoContainer>
