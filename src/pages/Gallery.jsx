@@ -10,7 +10,7 @@ const Gallery = () => {
       <Header />
       <Landingpage />
       <Gallerypage />
-      <Customers />
+      {/* <Customers /> */}
       <Footer />
     </>
   );

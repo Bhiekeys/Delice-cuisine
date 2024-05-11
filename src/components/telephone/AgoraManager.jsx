@@ -15,6 +15,7 @@ import { CiMicrophoneOff, CiMicrophoneOn } from 'react-icons/ci';
 import { ProfileCircle, Video, VideoSlash } from 'iconsax-react';
 import { MdOutlineCallEnd } from 'react-icons/md';
 import Logo from '../../assets/Logo.png';
+import { useNavigate } from 'react-router-dom';
 
 const AgoraManager = ({ AppID, channelName, token, uid }) => {
   // Retrieve local camera and microphone tracks and remote users
@@ -24,16 +25,21 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
     useLocalMicrophoneTrack();
 
   const remoteUsers = useRemoteUsers();
+  const navigate = useNavigate()
   const [isMicrophoneMuted, setIsMicrophoneMuted] = useState(false);
   const [isCameraMuted, setIsCameraMuted] = useState(false);
   const [noOfPeopleOnCall, setNoOfPeopleOnCall] = useState(0);
   const [currentTime, setCurrentTime] = useState('');
   const [endSession, setEndSession] = useState(false);
-  const [showEndSessionModal, setShowEndSessionModal] = useState(false);
 
-  useEffect(() => {
-    setNoOfPeopleOnCall(remoteUsers.length);
-  }, [remoteUsers]);
+ useEffect(() => {
+   try {
+     setNoOfPeopleOnCall(remoteUsers.length);
+     console.log('here is userrr', remoteUsers);
+   } catch (error) {
+     console.error('Error while updating number of remote users:', error);
+   }
+ }, [remoteUsers]);
 
   // Publish local tracks
   usePublish([localMicrophoneTrack, localCameraTrack]);
@@ -77,9 +83,7 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
     return () => clearInterval(getAndSetTime);
   }, []);
 
-  const toggleEndSession = () => {
-    setShowEndSessionModal(!showEndSessionModal);
-  };
+ 
 
   const toggleWebcam = () => {
     localCameraTrack.setMuted(!isCameraMuted);
@@ -96,6 +100,7 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
     setTimeout(() => {
       window.close();
     }, 3000);
+    navigate('/')
   };
 
   const VideoContainer = ({ children, variant, bg }) => (
@@ -158,7 +163,7 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
             )}
           </button>
           <button
-            onClick={toggleEndSession}
+            onClick={handleEndCall}
             className="p-2 flex flex-col sm:flex-row items-center gap-2 bg-[#f737a7] rounded-lg bg-Tmred text-white w-[119px]">
             <MdOutlineCallEnd color="#fff" size={24} />
             <span>End Call</span>
@@ -178,14 +183,14 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
       </>
     );
   };
-
+// flex sm:flex-row flex-col justify-evenly gap-2 sm:items-center w-full bg-[#cc9bb769] p-4 mt-8 rounded-[20px]
   const ControlContainer = () => (
-    <div className="flex sm:flex-row flex-col justify-evenly gap-2 sm:items-center w-full bg-[#cc9bb769] p-4 mt-8 rounded-[20px]">
+    <div className="flex justify-center flex-col md:flex-row items-center gap-2  md:bg-[#cc9bb769] md:px-8 md:py-4 mt-8 rounded-xl ">
       <p className="text-[14px] font-medium text-center sm:text-left">
         {currentTime}
       </p>
       <Controls />
-      <div className="flex items-center">
+      <div className="flex justify-center  items-center">
         <img src={Logo} alt="logo" className="h-[30px]" />
         <div className="flex items-center text-[#f737a7]">
           <h2 className="text-2xl font-semibold"> DeLiCeCuiSiNe</h2>
@@ -200,7 +205,9 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
   if (!localCameraTrack || !localMicrophoneTrack)
     return (
       <div className="flex justify-start flex-col ">
-        Preparing session please wait...
+        Preparing session please wait...<br />
+        
+        Note that we are currecntly working on this page  . . .
       </div>
     );
 
@@ -222,7 +229,7 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
         <VideoContainer>
           {isCameraMuted ? (
             <div className="w-full h-full relative overflow-hidden">
-              <div className="w-full h-full bg-lightTmrRed flex justify-center items-center">
+              <div className="w-full h-full bg-[#f737a7]  flex justify-center items-center">
                 <ProfileCircle size={100} color="#222" />
               </div>
             </div>
@@ -252,8 +259,8 @@ const AgoraManager = ({ AppID, channelName, token, uid }) => {
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="grid grid-cols-2 gap-4 justify-center items-center box-border h-screen">
+    <div className="flex flex-col w-[90vw] sm:w-full">
+      <div className="grid grid-cols-2 w-full gap-4 justify-center items-center box-border h-screen">
         <VideoContainer bg="bg-lightTmrRed">
           {isCameraMuted ? (
             <div className="w-full h-full flex justify-center items-center">

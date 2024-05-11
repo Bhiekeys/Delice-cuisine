@@ -77,7 +77,7 @@ const VideoCall = () => {
   }, []);
 
   return (
-    <div className="flex flex-col flex-1 justify-center bg-white w-full p-4 ">
+    <div className="flex flex-col flex-1 justify-center bg-white w-full ">
       {isLoading ? (
         <div className="flex justify-center items-center py-64">
           <h2>Loading . . .</h2>
@@ -88,7 +88,7 @@ const VideoCall = () => {
             <h1 className="float-left text-[#201A19] text-[28px] font-semibold">
               Consumer Video Call
             </h1>
-            <div className="float-right">
+            <div className="sm:float-right">
               <button className="flex justify-center items-center text-xs border-[1px] border-[#857371] rounded-[10px] text-red px-4 py-2">
                 Invite Staff
               </button>
@@ -96,7 +96,7 @@ const VideoCall = () => {
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-between mx-4 mt-4">
             <AgoraRTCProvider client={agoraEngine}>
-              <div className="md:w-full w-2/3 p-4">
+              <div className="md:w-full w-2/3 ">
                 <AgoraManager
                   channelName="bhiekeys"
                   AppID={AppID}

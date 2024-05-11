@@ -1,20 +1,20 @@
 
 const Values = () => {
   return (
-    <section className=" py-24">
+    <section className="py-10 md:py-24">
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center">
-          <h2 className="text-3xl font-semibold mb-4">
+          <h2 className="md:text-3xl text-2xl font-semibold mb-4">
             Our Values & Philosophy
           </h2>
-          <div className="max-w-lg mx-auto">
-            <p className="text-lg text-gray-700 text-center">
+          <div className="max-w-lg mx-auto px-2 md:px-0">
+            <p className="md:text-lg text-base text-gray-700 text-center">
               At Delice Cuisine, we believe in the power of food to bring people
               together and create memorable experiences. Our core values and
               philosophy shape every aspect of our business, from the
               ingredients we source to the service we provide.
             </p>
-            <ul className="mt-6 text-lg text-gray-700 text-center list-disc">
+            <ul className="mt-6 md:text-lg text-base text-gray-700 text-center list-disc">
               <li className="mb-2">
                 Quality: We are committed to using the freshest and finest
                 ingredients in all our dishes, ensuring exceptional taste and
